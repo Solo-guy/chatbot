@@ -1,0 +1,85 @@
+{
+    "project": {
+      "name": "SuperIntelligentAdminSystem",
+      "version": "1.0.0",
+      "description": "A system for managing chat application with FastAPI, React, PostgreSQL, CrewAI, MiniCPM, and APIsix."
+    },
+    "rules": {
+      "general": {
+        "language": ["python", "javascript"],
+        "style": {
+          "python": "PEP8",
+          "javascript": "ESLint"
+        },
+        "api": {
+          "type": "REST",
+          "schema": "Pydantic",
+          "endpoints": ["/chatbot/ask", "/add-backend", "/knowledge/update"]
+        },
+        "database": {
+          "type": "PostgreSQL",
+          "index": ["knowledge.source", "knowledge.category"]
+        }
+      },
+      "security": {
+        "authentication": "Keycloak JWT",
+        "encryption": "AES-256",
+        "frontend": "FaceID for admin panel"
+      },
+      "modules": {
+        "chatbot": {
+          "integrations": ["CrewAI", "MiniCPM", "Grok", "DeepSeek", "OpenAI"],
+          "websocket": "/chatbot/ws",
+          "rest": ["/chatbot/ask", "/chatbot/models", "/chatbot/forms", "/chatbot/workflow", "/chatbot/tracker", "/chatbot/datatools"],
+          "agents": ["Manager", "Knowledge", "Execution", "Learning"],
+          "interface": {
+            "left_pane": {
+              "components": ["AI Model Management", "Chat History", "NLU Input", "System Monitor"],
+              "features": ["dropdown", "virtual scroll", "slash commands", "file upload", "voice-to-text", "latency graph"]
+            },
+            "right_pane": {
+              "components": ["Dynamic Forms", "Workflow Engine", "Progress Tracker", "Data Tools"],
+              "features": ["JSON schema forms", "flowchart editor", "Gantt chart", "data tables"]
+            }
+          }
+        },
+        "backend": {
+          "groups": ["chat", "sales", "healthcare", "education", "database"],
+          "endpoints": ["/add-backend", "/backend/monitor"],
+          "integrations": ["Kafka", "CockroachDB", "ScyllaDB"]
+        },
+        "frontend": {
+          "platforms": ["React", "Kotlin", "Swift", "C++"],
+          "endpoints": ["/frontend/update"],
+          "admin_panel": "React with dual-pane"
+        },
+        "infra": {
+          "services": ["Kubernetes", "Redis", "Cloudflare", "Ansible", "GitLab", "Vault", "Consul", "Traefik", "Dynatrace"],
+          "endpoints": ["/manage-kubernetes", "/manage-redis"],
+          "apisix_update": "PUT /admin/upstreams"
+        },
+        "monitoring": {
+          "services": ["Prometheus", "Grafana", "Sentry", "ELK Stack", "PagerDuty", "Moogsoft", "Loki"],
+          "endpoints": ["/monitor-metrics", "/monitor-logs", "/monitor-errors"]
+        },
+        "ai": {
+          "frameworks": ["MLflow", "Kubeflow", "Weights & Biases", "DVC", "Optuna", "TensorFlow", "Core ML", "MiniCPM"],
+          "endpoints": ["/ai/adjust-model", "/ai/monitor-model", "/ai/train"]
+        },
+        "knowledge": {
+          "endpoints": ["/knowledge/update", "/knowledge/sync", "/knowledge/webhook", "/knowledge/crawler"],
+          "integrations": ["APScheduler", "BeautifulSoup", "Scrapy", "DistilBERT"],
+          "webhooks": ["APIsix", "Keycloak", "LiveKit", "GitLab", "Prometheus", "Sentry"]
+        }
+      },
+      "scripts": {
+        "install_minicpm": "install_minicpm.sh",
+        "install_services": "install_services.sh",
+        "setup_webhooks": "setup_webhooks.sh"
+      },
+      "docs": {
+        "auto_update": ["developer/*.md"],
+        "user_guides": ["admin_panel.md", "chatbot.md", "knowledge.md"]
+      }
+    }
+  }

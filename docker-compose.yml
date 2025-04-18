@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - elasticsearch
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/admin_db
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+  react:
+    build:
+      context: ./src/react
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  postgres:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=admin_db
+    volumes:
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+  elasticsearch:
+    image: elasticsearch:8.9.0
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+  minicpm:
+    image: python:3.8-slim
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./scripts/install_minicpm.sh:/install_minicpm.sh
+    command: ["/bin/bash", "/install_minicpm.sh"]

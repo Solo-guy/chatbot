@@ -1,0 +1,19 @@
+{
+    "name": "admin-panel",
+    "version": "1.0.0",
+    "dependencies": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "websocket": "^1.0.34",
+      "axios": "^1.4.0",
+      "tailwindcss": "^3.3.3"
+    },
+    "devDependencies": {
+      "vite": "^4.4.9",
+      "eslint": "^8.48.0"
+    },
+    "scripts": {
+      "start": "vite",
+      "build": "vite build"
+    }
+  }
